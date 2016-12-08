@@ -53,7 +53,7 @@ public class ContactsDaoIT {
     public void testSave(){
         contactsDao.save(contacts);
         assertNotNull(contacts.getId());
-    }   
+    }
 
     @Test
     public void testFindOne(){
