@@ -1,12 +1,5 @@
 package org.prnhs.javaee.swim.core.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.hibernate.exception.ConstraintViolationException;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +13,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import static org.junit.Assert.*;
+
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -29,6 +27,7 @@ public class UserDaoIT {
 
     @Autowired
     private UserDao userDao;
+
     @PersistenceContext
     private EntityManager entityManager;
 
