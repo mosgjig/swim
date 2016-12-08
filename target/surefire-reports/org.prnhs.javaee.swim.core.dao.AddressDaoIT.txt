@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.prnhs.javaee.swim.core.dao.AddressDaoIT
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.546 sec - in org.prnhs.javaee.swim.core.dao.AddressDaoIT
