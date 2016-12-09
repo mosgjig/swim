@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class PlanResultDaoIT {
-    private static final Logger logger = LoggerFactory.getLogger(UserDaoIT.class);
+    private static final Logger logger = LoggerFactory.getLogger(PlanResultDaoIT.class);
 
     @Autowired
     private PlanResultDao dao;
