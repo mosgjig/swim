@@ -10,13 +10,9 @@ public class Contacts {
     @Id
     @GeneratedValue
     Integer id;
-
     String title;
-
     String firstName;
-
     String middleName;
-
     String lastName;
 
     public Integer getId() {

@@ -27,7 +27,6 @@ public class UserDaoIT {
 
     @Autowired
     private UserDao userDao;
-
     @PersistenceContext
     private EntityManager entityManager;
 
