@@ -35,7 +35,7 @@ public class ProgramService {
         return savedProgram;
     }
     
-    public ProgramDto getById(int id){
+    public ProgramDto getById(Integer id){
         ProgramDto dto = null;
         Program p = dao.findOne(id);
         
@@ -47,18 +47,20 @@ public class ProgramService {
     
     public List<ProgramDto> getAll(){
         Iterable<Program> programs = dao.findAll();
-        Iterator<Program> iterator = programs.iterator();
         List<ProgramDto> dtos = new ArrayList<>();
-        
-        while(iterator.hasNext()){
-            ProgramDto dto = ProgramTranslator.toDto(iterator.next());
-            dtos.add(dto);
+        if(programs!=null){
+            Iterator<Program> iterator = programs.iterator();
+
+            while(iterator.hasNext()){
+                ProgramDto dto = ProgramTranslator.toDto(iterator.next());
+                dtos.add(dto);
+            }
         }
             
         return dtos;        
     }
     
-    public void delete(int id){
+    public void delete(Integer id){
         Program p = dao.findOne(id);
         if(p != null){
             dao.delete(p);

@@ -1,5 +1,6 @@
 package org.prnhs.javaee.swim.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,6 +42,8 @@ public class ProgramServiceTest {
         dto = new ProgramDto();
         dto.setId(ID);
         dto.setObjective(OBJECTIVE);
+        programs = new ArrayList<>();
+        dtos = new ArrayList<>();
     }
     
     @Test
@@ -51,4 +54,55 @@ public class ProgramServiceTest {
         ProgramDto savedDto = uut.save(dto);
         Mockito.verify(dao).save(program);
     }
+    
+    @Test
+    public void test_saveWithoutFound(){
+        when(dao.findOne(Matchers.anyInt())).thenReturn(null);
+        when(dao.save(program)).thenReturn(program);
+        
+        ProgramDto savedDto = uut.save(dto);
+        Mockito.verify(dao).save(program);        
+    }
+    
+    @Test
+    public void test_getById(){
+        when(dao.findOne(ID)).thenReturn(program);
+        
+        ProgramDto dto = uut.getById(ID);
+        Mockito.verify(dao).findOne(ID);  
+    }
+    
+    @Test
+    public void test_getByIdNotFound(){
+        when(dao.findOne(ID)).thenReturn(null);
+        
+        ProgramDto dto = uut.getById(ID);
+        Mockito.verify(dao).findOne(ID);  
+    }
+    
+    @Test
+    public void test_getAll(){
+        when(dao.findAll()).thenReturn(programs);
+        
+        dtos = uut.getAll();
+        Mockito.verify(dao).findAll(); 
+    }
+    
+    @Test
+    public void test_getAllNotFound(){
+        when(dao.findAll()).thenReturn(null);
+        
+        dtos = uut.getAll();
+        Mockito.verify(dao).findAll(); 
+    }
+    
+    @Test
+    public void test_delete(){
+        when(dao.findOne(ID)).thenReturn(program);
+        
+        uut.delete(ID);
+        Mockito.verify(dao).delete(program);
+    }
+    
+    
 }
