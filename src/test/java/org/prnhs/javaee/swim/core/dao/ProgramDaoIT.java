@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class ProgramDaoIT {
     private static final Logger logger = LoggerFactory.getLogger(ProgramDaoIT.class);
-    
+       
     @Autowired
     private ProgramDao programDao;
     
