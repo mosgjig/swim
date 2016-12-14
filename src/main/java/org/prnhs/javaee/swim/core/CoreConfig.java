@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableAutoConfiguration
-@EnableJpaRepositories(basePackages = "org.prnhs.javaee.swim.dao")
-@EntityScan(basePackages = {"org.prnhs.javaee.swim.entity"})
+@EnableJpaRepositories(basePackages = "org.prnhs.javaee.swim.core.dao")
+@EntityScan(basePackages = {"org.prnhs.javaee.swim.core.entity"})
 public class CoreConfig {
 
 }
