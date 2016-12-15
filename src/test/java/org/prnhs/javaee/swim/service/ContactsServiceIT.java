@@ -1,5 +1,5 @@
 
-package org.prnhs.javaee.swim.core.service;
+package org.prnhs.javaee.swim.service;
 
 import org.junit.Before;
 import org.junit.Test;
