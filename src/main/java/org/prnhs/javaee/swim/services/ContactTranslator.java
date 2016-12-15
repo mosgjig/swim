@@ -1,16 +1,16 @@
 package org.prnhs.javaee.swim.services;
 
-import org.prnhs.javaee.swim.core.dto.ContactsDto;
+import org.prnhs.javaee.swim.dto.ContactsDto;
 import org.prnhs.javaee.swim.core.entity.Contacts;
 
 public class ContactTranslator {
     
     public static ContactsDto toDto(Contacts contacts) {
-        
+
        if (contacts == null) {
            throw new IllegalArgumentException("Hey, you were supposed to give me a contact");
        }
-       
+
        ContactsDto dto = new ContactsDto();
        dto.setFirstName(contacts.getFirstName());
        dto.setMiddleName(contacts.getMiddleName());

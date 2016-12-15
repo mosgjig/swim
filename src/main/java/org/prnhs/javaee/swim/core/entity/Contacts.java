@@ -4,17 +4,18 @@ package org.prnhs.javaee.swim.core.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity(name = "contacts")
 public class Contacts {
 
     @Id
     @GeneratedValue
-    Integer id;
-    String title;
-    String firstName;
-    String middleName;
-    String lastName;
+    private Integer id;
+    private String title;
+    private String firstName;
+    private String middleName;
+    private String lastName;
 
     public Integer getId() {
         return id;
@@ -57,19 +58,35 @@ public class Contacts {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Contacts contacts = (Contacts) o;
-
-        if (!id.equals(contacts.id)) return false;
-        if (!title.equals(contacts.title)) return false;
-        if (!firstName.equals(contacts.firstName)) return false;
-        if (!middleName.equals(contacts.middleName)) return false;
-        return lastName.equals(contacts.lastName);
-
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Contacts other = (Contacts) obj;
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.firstName, other.firstName)) {
+            return false;
+        }
+        if (!Objects.equals(this.middleName, other.middleName)) {
+            return false;
+        }
+        if (!Objects.equals(this.lastName, other.lastName)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
+
 
     @Override
     public int hashCode() {

@@ -1,13 +1,14 @@
 package org.prnhs.javaee.swim.services;
 
+import org.prnhs.javaee.swim.core.dao.ContactsDao;
+import org.prnhs.javaee.swim.core.entity.Contacts;
+import org.prnhs.javaee.swim.dto.ContactsDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.prnhs.javaee.swim.core.dao.ContactsDao;
-import org.prnhs.javaee.swim.core.dto.ContactsDto;
-import org.prnhs.javaee.swim.core.entity.Contacts;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class ContactsServices {
@@ -24,9 +25,13 @@ public class ContactsServices {
         Contacts contacts = dao.findOne(contactsDto.getId());
 
         if (contacts == null) {
-
             contacts = ContactTranslator.toEntity(contactsDto);
-        } 
+        } else{
+            contacts.setFirstName(contactsDto.getFirstName());
+            contacts.setLastName(contactsDto.getLastName());
+            contacts.setMiddleName(contactsDto.getMiddleName());
+            contacts.setTitle(contactsDto.getTitle());
+        }
         
         contacts = dao.save(contacts);
         
@@ -39,6 +44,7 @@ public class ContactsServices {
         
         ContactsDto dto = null;
         Contacts contacts = dao.findOne(id);
+
         if(contacts != null){
             dto = ContactTranslator.toDto(contacts);
         }
@@ -49,13 +55,16 @@ public class ContactsServices {
     public List<ContactsDto> getAll(){
         
         Iterable<Contacts> contacts = dao.findAll();
-        Iterator<Contacts> it = contacts.iterator();
         List<ContactsDto> dtos = new ArrayList<>();
-        
-        while(it.hasNext()) {
-            Contacts c = it.next();
-            ContactsDto dto = ContactTranslator.toDto(c);
-            dtos.add(dto);
+
+        if(contacts != null) {
+            Iterator<Contacts> it = contacts.iterator();
+
+            while (it.hasNext()) {
+                Contacts c = it.next();
+                ContactsDto dto = ContactTranslator.toDto(c);
+                dtos.add(dto);
+            }
         }
         
         return dtos;
@@ -63,6 +72,7 @@ public class ContactsServices {
     
     public void delete(Integer id) {
         Contacts contacts = dao.findOne(id);
+
         if (contacts != null){
             dao.delete(contacts);
         }
