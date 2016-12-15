@@ -33,8 +33,8 @@ public class UserController {
         return userService.getAll();
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(String id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void delete(@PathVariable String id) {
         userService.delete(id);
     }
 }
