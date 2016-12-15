@@ -2,7 +2,7 @@ spring:
     datasource:
         url: jdbc:mysql://localhost:3306/swim?autoReconnect=true
         username: root
-        password: root
+        password: 1234
         driverClassName: com.mysql.jdbc.Driver
         maxActive: 10
         max-idle: 5
