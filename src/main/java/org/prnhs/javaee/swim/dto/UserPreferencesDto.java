@@ -1,13 +1,9 @@
-package org.prnhs.javaee.swim.core.entity;
+package org.prnhs.javaee.swim.dto;
 
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
-@Entity(name = "user_preferences")
-public class UserPreferences {
+public class UserPreferencesDto {
 
-    @Id
     private String username;
     private Integer typeId;
 
@@ -29,9 +25,9 @@ public class UserPreferences {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.username);
-        hash = 59 * hash + Objects.hashCode(this.typeId);
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.username);
+        hash = 17 * hash + Objects.hashCode(this.typeId);
         return hash;
     }
 
@@ -46,7 +42,7 @@ public class UserPreferences {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final UserPreferences other = (UserPreferences) obj;
+        final UserPreferencesDto other = (UserPreferencesDto) obj;
         if (!Objects.equals(this.username, other.username)) {
             return false;
         }
