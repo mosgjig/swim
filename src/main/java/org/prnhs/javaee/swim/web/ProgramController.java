@@ -23,7 +23,7 @@ public class ProgramController {
         return programService.save(dto);
     }
     
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ProgramDto getById(@PathVariable Integer id){
         return programService.getById(id);
     }
@@ -33,7 +33,7 @@ public class ProgramController {
         return programService.getAll();
     }
     
-    @RequestMapping(value = "/", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void delete(@PathVariable Integer id){
         programService.delete(id);
     }
