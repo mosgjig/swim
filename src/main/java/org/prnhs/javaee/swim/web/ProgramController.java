@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProgramController {
     
     @Autowired
-    ProgramService programService;
+    private ProgramService programService;
     
     @RequestMapping(value="/", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
     public ProgramDto save(@RequestBody ProgramDto dto){
