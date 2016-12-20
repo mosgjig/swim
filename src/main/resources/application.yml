@@ -14,3 +14,8 @@ spring:
         hibernate:
             ddl-auto: none
         database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+logging:
+    level:
+        org:
+            prnhs: DEBUG
+            springframework: ERROR

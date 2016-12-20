@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import org.prnhs.javaee.swim.dto.UserDto;
 import org.prnhs.javaee.swim.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private MetricRegistry metrics;
@@ -31,7 +35,7 @@ public class UserController {
 
     @PostConstruct
     private void startProfiler() {
-        reporter.start(15, TimeUnit.SECONDS);
+//        reporter.start(15, TimeUnit.SECONDS);
     }
     
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -41,8 +45,10 @@ public class UserController {
         return userService.save(dto);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public UserDto getById(@PathVariable String id) {
+        
+        LOGGER.debug("hello from getById {} ", id);
         Meter requests = metrics.meter("getById");
         requests.mark();
         return userService.getById(id);
