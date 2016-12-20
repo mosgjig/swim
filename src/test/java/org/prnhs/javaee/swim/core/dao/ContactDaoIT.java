@@ -26,7 +26,6 @@ public class ContactDaoIT {
 
     @Autowired
     private ContactsDao contactsDao;
-
     @PersistenceContext
     private EntityManager entityManager;
 
