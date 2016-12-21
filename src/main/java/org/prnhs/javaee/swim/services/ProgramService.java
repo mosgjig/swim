@@ -19,7 +19,10 @@ public class ProgramService {
         if(programDto == null){
             throw new IllegalArgumentException("hey, you were supposed to give me a program!");
         }
-        Program program = dao.findOne(programDto.getId());
+        Program program = null;
+        if (programDto.getId()!=null){
+            program = dao.findOne(programDto.getId());
+        }
         
         if(program == null){
             program = ProgramTranslator.toEntity(programDto);
