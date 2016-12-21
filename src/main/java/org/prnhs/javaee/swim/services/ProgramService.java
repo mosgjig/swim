@@ -21,7 +21,7 @@ public class ProgramService {
     
     public ProgramDto save(ProgramDto programDto){
         if(programDto.getObjective() == null){
-            LOGGER.debug("Save method called in ProgramService but the program object was null");
+            LOGGER.warn("Save method called in ProgramService but the program object was null");
             throw new IllegalArgumentException("hey, you were supposed to give me a program!");
         }
         
