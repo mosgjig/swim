@@ -65,4 +65,14 @@ public class PlanResultDto {
         result = 31 * result + (swimTime != null ? swimTime.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "PlanResultDto { " +
+                "id = " + id +
+                ", strokes = " + strokes +
+                ", length = " + length +
+                ", swimTime = " + swimTime +
+                " }";
+    }
 }
