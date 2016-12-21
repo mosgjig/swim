@@ -65,6 +65,8 @@ public class ContactsServices {
                 ContactsDto dto = ContactTranslator.toDto(c);
                 dtos.add(dto);
             }
+
+//            contacts.forEach(contacts -> dtos.add(ContactTranslator.toDto(contacts)));
         }
         
         return dtos;
