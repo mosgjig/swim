@@ -24,7 +24,7 @@ public class ProgramController {
     
     @RequestMapping(value="/", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
     public ProgramDto save(@RequestBody ProgramDto dto){
-        LOGGER.debug("Save method called in ProgramController class");
+        LOGGER.debug("Save method called in ProgramController. Saving program with this objective: {}", dto.getObjective());
         return programService.save(dto);
     }
     

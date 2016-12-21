@@ -29,7 +29,7 @@ public class ProgramService {
         program = dao.save(program);
         
         ProgramDto savedProgram = ProgramTranslator.toDto(program);
-        LOGGER.debug("Save method executed successfully in ProgramService, the program with id: {} got saved", savedProgram.getId());
+        LOGGER.debug("Save method executed successfully in ProgramService, the program {} got saved", savedProgram);
         return savedProgram;
     }
     
@@ -39,7 +39,7 @@ public class ProgramService {
         LOGGER.debug("getById method called in ProgramService, the given id was: {}", id);
         
         if(p != null){
-            LOGGER.debug("getById: A program was found with the given id: {}", id);
+            LOGGER.debug("getById called: A program was found: {}", p);
             dto = ProgramTranslator.toDto(p);
         }
         return dto;
