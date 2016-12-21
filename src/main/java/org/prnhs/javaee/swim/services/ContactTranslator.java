@@ -12,6 +12,7 @@ public class ContactTranslator {
        }
 
        ContactsDto dto = new ContactsDto();
+       dto.setId(contacts.getId());
        dto.setFirstName(contacts.getFirstName());
        dto.setMiddleName(contacts.getMiddleName());
        dto.setLastName(contacts.getLastName());
@@ -27,6 +28,7 @@ public class ContactTranslator {
         }
         
         Contacts contacts = new Contacts();
+        contacts.setId(dto.getId());
         contacts.setFirstName(dto.getFirstName());
         contacts.setMiddleName(dto.getMiddleName());
         contacts.setLastName(dto.getLastName());
