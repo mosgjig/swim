@@ -32,6 +32,11 @@ public class ProgramDto {
     }
 
     @Override
+    public String toString() {
+        return "ProgramDto{" + "id=" + id + ", objective=" + objective + '}';
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -47,7 +52,6 @@ public class ProgramDto {
             return false;
         }
         return true;
-    }
-    
+    }    
     
 }
