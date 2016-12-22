@@ -3,7 +3,7 @@ package org.prnhs.javaee.swim.dto;
 import java.util.Objects;
 
 public class ContactsDto {
-    
+
     private Integer id;
     private String title;
     private String firstName;
@@ -51,6 +51,17 @@ public class ContactsDto {
     }
 
     @Override
+    public String toString() {
+        return "ContactsDto{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 67 * hash + Objects.hashCode(this.id);
@@ -89,5 +100,5 @@ public class ContactsDto {
             return false;
         }
         return true;
-    } 
+    }
 }
