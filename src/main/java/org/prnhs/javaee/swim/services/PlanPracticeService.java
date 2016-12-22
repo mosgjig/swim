@@ -43,7 +43,7 @@ public class PlanPracticeService {
         }
 
         planPractice = dao.save(planPractice);
-        LOGGER.debug("{} saved successfully", planPracticeDto);
+        LOGGER.debug("Saved successfully with result {}", planPracticeDto);
 
         return PlanPracticeTranslator.toDto(planPractice);
     }

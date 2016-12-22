@@ -44,7 +44,7 @@ public class PlanResultService {
         }
 
         planResult = dao.save(planResult);
-        LOGGER.debug("{} saved successfully", planResultDto);
+        LOGGER.debug("Saved successfully with result {}", planResultDto);
 
         return PlanResultTranslator.toDto(planResult);
     }
