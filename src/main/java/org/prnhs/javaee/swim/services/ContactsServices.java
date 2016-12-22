@@ -51,7 +51,7 @@ public class ContactsServices {
 
         ContactsDto dto = null;
         Contacts contacts = dao.findOne(id);
-        LOGGER.debug("The getById method is called", id);
+        LOGGER.debug("The getById method is called");
 
         if(contacts != null){
 
