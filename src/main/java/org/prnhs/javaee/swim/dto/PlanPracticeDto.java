@@ -76,4 +76,15 @@ public class PlanPracticeDto {
         result = 31 * result + (split != null ? split.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "PlanPracticeDto { " +
+                "id = " + id +
+                ", length = " + length +
+                ", multiple = " + multiple +
+                ", exercise = '" + exercise + '\'' +
+                ", split = " + split +
+                " }";
+    }
 }

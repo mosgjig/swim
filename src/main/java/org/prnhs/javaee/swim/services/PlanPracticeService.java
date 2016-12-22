@@ -3,6 +3,8 @@ package org.prnhs.javaee.swim.services;
 import org.prnhs.javaee.swim.core.dao.PlanPracticeDao;
 import org.prnhs.javaee.swim.core.entity.PlanPractice;
 import org.prnhs.javaee.swim.dto.PlanPracticeDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +17,25 @@ import java.util.List;
 @Service
 public class PlanPracticeService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlanPracticeService.class);
+
     @Autowired
     private PlanPracticeDao dao;
 
     public PlanPracticeDto save(PlanPracticeDto planPracticeDto) {
 
         if (planPracticeDto == null) {
+            LOGGER.error("'Plan Practice' is missing!");
             throw new IllegalArgumentException("You have to provide the Plan Practice!");
         }
 
         PlanPractice planPractice = dao.findOne(planPracticeDto.getId());
 
         if (planPractice == null) {
+            LOGGER.debug("'Given 'Plan Practice' is not found, creating a new one.");
             planPractice = PlanPracticeTranslator.toEntity(planPracticeDto);
         } else {
+            LOGGER.debug("Updating {}", planPracticeDto);
             planPractice.setLength(planPracticeDto.getLength());
             planPractice.setMultiple(planPracticeDto.getMultiple());
             planPractice.setExercise(planPracticeDto.getExercise());
@@ -36,37 +43,35 @@ public class PlanPracticeService {
         }
 
         planPractice = dao.save(planPractice);
+        LOGGER.debug("Saved successfully with result {}", planPracticeDto);
 
         return PlanPracticeTranslator.toDto(planPractice);
     }
 
     public PlanPracticeDto getById(Integer id) {
-
         PlanPracticeDto dto = null;
+
+        LOGGER.debug("Trying to find 'Plan Practice' with id {}", id);
 
         PlanPractice planPractice = dao.findOne(id);
 
         if (planPractice != null) {
             dto = PlanPracticeTranslator.toDto(planPractice);
+            LOGGER.debug("'Plan Practice' with id {} got found successfully!", id);
         }
 
         return dto;
     }
 
     public List<PlanPracticeDto> getAll() {
+
+        LOGGER.debug("Trying to get all 'Plan Practices'");
+
         Iterable<PlanPractice> planPractices = dao.findAll();
 
         List<PlanPracticeDto> dtos = new ArrayList<>();
 
         planPractices.forEach(planPractice -> dtos.add(PlanPracticeTranslator.toDto(planPractice)));
-
-        /*Iterator<PlanPractice> iterator = planPractices.iterator();
-
-        while (iterator.hasNext()) {
-            PlanPractice planPractice = iterator.next();
-            PlanPracticeDto dto = PlanPracticeTranslator.toDto(planPractice);
-            dtos.add(dto);
-        }*/
 
         return dtos;
     }
@@ -75,7 +80,10 @@ public class PlanPracticeService {
         PlanPractice planPractice = dao.findOne(id);
 
         if (planPractice != null) {
+            LOGGER.debug("Deleting 'Plan Practice' with id: {}", id);
             dao.delete(id);
+        } else {
+            LOGGER.debug("'Plan Practice' with id {} was not found to get deleted.", id);
         }
     }
 }
