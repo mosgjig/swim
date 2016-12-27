@@ -1,5 +1,9 @@
 package org.prnhs.javaee.swim.web;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.prnhs.javaee.swim.dto.PlanPracticeDto;
 import org.prnhs.javaee.swim.services.PlanPracticeService;
 import org.slf4j.Logger;
@@ -14,6 +18,7 @@ import java.util.List;
  * Created by Durim Kryeziu on Dec 15, 2016.
  */
 @RestController
+@Api("Plan Practice Controller")
 @RequestMapping("/practices")
 public class PlanPracticeController {
 
@@ -23,6 +28,11 @@ public class PlanPracticeController {
     private PlanPracticeService practiceService;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Save a Plan Practice", notes = "Plan Practice is either created or updated depending whether the id is present on the database or not.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK", response = PlanPracticeDto.class),
+            @ApiResponse(code = 400, message = "Bad Request")
+    })
     public PlanPracticeDto save(@RequestBody PlanPracticeDto practiceDto) {
 
         LOGGER.info("POST /practices get called.");
@@ -32,6 +42,11 @@ public class PlanPracticeController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Retrieve a Plan Practice by id", notes = "Retrieve the Plan Practice by their id")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK", response = PlanPracticeDto.class),
+            @ApiResponse(code = 400, message = "Bad Request")
+    })
     public PlanPracticeDto getById(@PathVariable Integer id) {
 
         LOGGER.info("GET /practices/{} get called.", id);
@@ -44,6 +59,11 @@ public class PlanPracticeController {
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Retrieve all Plan Practices", notes = "Retrieves all the Plan Practices in the system")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK", response = PlanPracticeDto.class),
+            @ApiResponse(code = 400, message = "Bad Request")
+    })
     public List<PlanPracticeDto> getAll() {
 
         LOGGER.info("GET /practices get called.");
@@ -57,6 +77,8 @@ public class PlanPracticeController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ApiOperation(value = "Delete a Plan Practice", notes = "For given id, find the Plan Practice and delete")
+    @ApiResponse(code = 204, message = "No Content")
     public void delete(@PathVariable Integer id) {
 
         LOGGER.info("DELETE /practices/{} get called.", id);

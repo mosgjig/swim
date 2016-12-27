@@ -1,16 +1,25 @@
 package org.prnhs.javaee.swim.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.sql.Time;
 
 /**
  * Created by Durim Kryeziu on Dec 14, 2016.
  */
+@ApiModel(value = "PlanPracticeDto", description = "Model for representing a Plan Practice")
 public class PlanPracticeDto {
 
+    @ApiModelProperty("Plan Practice's id")
     private Integer id;
+    @ApiModelProperty("Plan Practice's length")
     private Integer length;
+    @ApiModelProperty("Plan Practice's multiple")
     private Integer multiple;
+    @ApiModelProperty("Plan Practice's exercise")
     private String exercise;
+    @ApiModelProperty("Plan Practice's split")
     private Time split;
 
     public Integer getId() {
