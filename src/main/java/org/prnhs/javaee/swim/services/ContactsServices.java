@@ -22,7 +22,8 @@ public class ContactsServices {
 
     public ContactsDto save(ContactsDto contactsDto) {
 
-        if (contactsDto.getId() == null) {
+        LOGGER.debug("Save method is called ");
+        if (contactsDto == null) {
 
             LOGGER.warn("The exception is thrown as a result of a blank Contact Id");
             throw new IllegalArgumentException("Hey, you were supposed to give me a contact");
@@ -49,16 +50,14 @@ public class ContactsServices {
 
     public ContactsDto getById(Integer id){
 
+        LOGGER.debug("The getById method is called");
         ContactsDto dto = null;
         Contacts contacts = dao.findOne(id);
-        LOGGER.debug("The getById method is called");
 
         if(contacts != null){
 
             dto = ContactTranslator.toDto(contacts);
             LOGGER.debug("A Contact is found with the results: {}", dto);
-        } else {
-            LOGGER.debug("The Contact with a given Id of {} doesn't exist, the method getById returns null", id);
         }
 
         return dto;
@@ -66,14 +65,13 @@ public class ContactsServices {
 
     public List<ContactsDto> getAll(){
 
+        LOGGER.debug("The getAll method is called");
+
         Iterable<Contacts> contacts = dao.findAll();
         List<ContactsDto> dtos = new ArrayList<>();
 
-        LOGGER.debug("The getAll method is called");
-
         if(contacts != null) {
 
-            LOGGER.debug("Returned all the Contacts that were found");
             Iterator<Contacts> it = contacts.iterator();
 
             while (it.hasNext()) {
@@ -81,19 +79,21 @@ public class ContactsServices {
                 ContactsDto dto = ContactTranslator.toDto(c);
                 dtos.add(dto);
             }
+            LOGGER.debug("Returned all the Contacts that were found");
         }
 
         return dtos;
     }
 
     public void delete(Integer id) {
-        Contacts contacts = dao.findOne(id);
+
         LOGGER.debug("The delete method is called");
+        Contacts contacts = dao.findOne(id);
 
         if (contacts != null){
 
-            LOGGER.debug("The Contact with the given Id of {} is deleted", id);
             dao.delete(contacts);
+            LOGGER.debug("The Contact with the given Id of {} is deleted", id);
         }
     }
 }
