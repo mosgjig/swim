@@ -3,6 +3,7 @@ package org.prnhs.javaee.swim.web;
 import com.codahale.metrics.ConsoleReporter;
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -18,6 +19,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
+@Api(value = "Contact Controller")
 @RequestMapping("/contacts")
 public class ContactController {
 
