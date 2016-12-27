@@ -1,3 +1,7 @@
+server:
+    port: 8080
+    contextPath: /swim/api/v1
+
 spring:
     datasource:
         url: jdbc:mysql://localhost:3306/swim?autoReconnect=true

@@ -1,11 +1,17 @@
 package org.prnhs.javaee.swim.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
+@ApiModel(value = "UserDto", description = "Model for representing a User")
 public class UserDto {
-    
+
+    @ApiModelProperty(value = "User's key/id")
     private String username;
+    @ApiModelProperty(value = "User's password")
     private String password;
+    @ApiModelProperty(value = "Is the user enabled or active")
     private Boolean enabled;
 
     public String getUsername() {
@@ -64,6 +70,5 @@ public class UserDto {
         }
         return true;
     }
-    
-    
+
 }

@@ -3,6 +3,10 @@ package org.prnhs.javaee.swim.web;
 import com.codahale.metrics.ConsoleReporter;
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
@@ -19,14 +23,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Api(value = "User Controller")
 @RequestMapping("/users")
 public class UserController {
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private MetricRegistry metrics;
-    
+
     @Autowired
     private ConsoleReporter reporter;
 
@@ -37,8 +42,12 @@ public class UserController {
     private void startProfiler() {
 //        reporter.start(15, TimeUnit.SECONDS);
     }
-    
+
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Save a user", notes = "Users are either created or updated depending whether an id/key is present or not.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK", response = UserDto.class),
+        @ApiResponse(code = 400, message = "Bad Request")})
     public UserDto save(@RequestBody UserDto dto) {
         Meter requests = metrics.meter("save");
         requests.mark();
@@ -46,8 +55,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Retrieve a user by id", notes = "Retrieve the user by their id")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK", response = UserDto.class),
+        @ApiResponse(code = 400, message = "Bad Request")})
     public UserDto getById(@PathVariable String id) {
-        
+
         LOGGER.debug("hello from getById {} ", id);
         Meter requests = metrics.meter("getById");
         requests.mark();
@@ -55,6 +68,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Retrieve all user", notes = "Retrieve all the users in the system")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK", response = UserDto.class)})
     public List<UserDto> getAll() {
         Meter requests = metrics.meter("getAll");
         requests.mark();
@@ -62,6 +78,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Delete a user", notes = "For given id, find user and delete.")
     public void delete(@PathVariable String id) {
         userService.delete(id);
     }
