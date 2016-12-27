@@ -1,13 +1,22 @@
 package org.prnhs.javaee.swim.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Objects;
 
+@ApiModel(value = "ContactsDto", description = "Model for representing a Contact")
 public class ContactsDto {
 
+    @ApiModelProperty(value = "Contact's key/id")
     private Integer id;
+    @ApiModelProperty(value = "Contact's title")
     private String title;
+    @ApiModelProperty(value = "Contact's fistname")
     private String firstName;
+    @ApiModelProperty(value = "Contact's middlename")
     private String middleName;
+    @ApiModelProperty(value = "Contact's lastname")
     private String lastName;
 
     public Integer getId() {

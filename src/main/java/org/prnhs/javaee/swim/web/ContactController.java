@@ -3,6 +3,10 @@ package org.prnhs.javaee.swim.web;
 import com.codahale.metrics.ConsoleReporter;
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.prnhs.javaee.swim.dto.ContactsDto;
 import org.prnhs.javaee.swim.services.ContactsServices;
 import org.slf4j.Logger;
@@ -15,6 +19,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
+@Api(value = "Contact Controller")
 @RequestMapping("/contacts")
 public class ContactController {
 
@@ -35,6 +40,10 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Save a contact", notes = "Contacts are either created or updated depending whether an id/key is present or not.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ContactsDto.class),
+            @ApiResponse(code = 400, message = "Bad Request")})
     public ContactsDto save(@RequestBody ContactsDto dto) {
 
         LOGGER.debug("A request to POST method saving '{}' as a Contact", dto.getFirstName());
@@ -45,6 +54,10 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Retrieve a contact by id", notes = "Retrieve the contact by their id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ContactsDto.class),
+            @ApiResponse(code = 400, message = "Bad Request")})
     public ContactsDto getById(@PathVariable Integer id){
 
         LOGGER.debug("A request to the GET method, returning a Contact by given ID of {} ", id);
@@ -55,6 +68,10 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Retrieve all contacts", notes = "Retrieve all the contacts in the system")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ContactsDto.class)
+    })
     public List<ContactsDto> getAll() {
 
         LOGGER.debug(" A request to the GET method, returning all Contacts");
@@ -65,6 +82,7 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ApiOperation(value = "Delete contact", notes = "For given id, find contact and delete")
     public void delete(@PathVariable Integer id){
 
         LOGGER.debug(" A request to a DELETE method with a given Id of {} ", id);
