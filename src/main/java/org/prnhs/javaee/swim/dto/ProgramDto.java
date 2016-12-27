@@ -1,10 +1,15 @@
 package org.prnhs.javaee.swim.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
+@ApiModel(value="ProgramDto", description="Model for representing a Program")
 public class ProgramDto {
     
+    @ApiModelProperty(value = "Program's key/id", readOnly = true)
     private Integer id;
+    @ApiModelProperty(value = "Program's objective", required = true)
     private String objective;
 
     public Integer getId() {
