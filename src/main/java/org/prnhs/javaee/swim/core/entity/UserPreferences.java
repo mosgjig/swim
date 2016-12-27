@@ -28,6 +28,11 @@ public class UserPreferences {
     }
 
     @Override
+    public String toString() {
+        return "UserPreferences{" + "username=" + username + ", typeId=" + typeId + '}';
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 59 * hash + Objects.hashCode(this.username);

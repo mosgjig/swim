@@ -24,6 +24,11 @@ public class UserPreferencesDto {
     }
 
     @Override
+    public String toString() {
+        return "UserPreferencesDto{" + "username=" + username + ", typeId=" + typeId + '}';
+    }
+
+    @Override
     public int hashCode() {
         int hash = 3;
         hash = 17 * hash + Objects.hashCode(this.username);
