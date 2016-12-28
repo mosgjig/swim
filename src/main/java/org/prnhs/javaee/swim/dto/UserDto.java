@@ -4,17 +4,24 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.springframework.hateoas.ResourceSupport;
 
 @ApiModel(value = "UserDto", description = "Model for representing a User")
-public class UserDto extends ResourceSupport implements Serializable{
+public class UserDto extends ResourceSupport implements Serializable {
 
     private static final long serialVersionUID = 1254941322074092446L;
 
+    @NotNull(message = "{user.username.null}")
+    @Size(max = 45, min = 1, message = "{user.username.size}")
     @ApiModelProperty(value = "User's key/id")
     private String username;
+    @NotNull(message = "{user.password.null}")
+    @Size(max = 45, min = 1, message = "{user.password.size}")
     @ApiModelProperty(value = "User's password")
     private String password;
+    @NotNull(message = "{user.enabled.null}")
     @ApiModelProperty(value = "Is the user enabled or active")
     private Boolean enabled;
 
