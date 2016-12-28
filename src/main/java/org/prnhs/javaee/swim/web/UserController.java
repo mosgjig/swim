@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.prnhs.javaee.swim.dto.UserDto;
 import org.prnhs.javaee.swim.services.UserService;
 import org.slf4j.Logger;
@@ -49,7 +51,7 @@ public class UserController {
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK", response = UserDto.class),
         @ApiResponse(code = 400, message = "Bad Request")})
-    public UserDto save(@RequestBody UserDto dto) {
+    public UserDto save(@RequestBody @Valid @NotNull(message = "{user.null}") UserDto dto) {
         Meter requests = metrics.meter("save");
         requests.mark();
 
