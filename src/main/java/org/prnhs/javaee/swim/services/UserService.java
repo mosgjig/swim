@@ -9,12 +9,23 @@ import org.prnhs.javaee.swim.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * User service where all operations on a user are preformed.
+ * 
+ * @author mosgjig
+ */
 @Service
 public class UserService {
 
     @Autowired
     private UserDao dao;
 
+    /**
+     * Save the user regardless if it exists or not.
+     * 
+     * @param userDto - a {@link UserDto}
+     * @return userDto - the save user usually contains a populated key if none was fed
+     */
     public UserDto save(UserDto userDto) {
         if (userDto == null) {
             throw new IllegalArgumentException("hey, you were supposed to give me a user!");

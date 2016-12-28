@@ -2,10 +2,14 @@ package org.prnhs.javaee.swim.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 import java.util.Objects;
+import org.springframework.hateoas.ResourceSupport;
 
 @ApiModel(value = "UserDto", description = "Model for representing a User")
-public class UserDto {
+public class UserDto extends ResourceSupport implements Serializable{
+
+    private static final long serialVersionUID = 1254941322074092446L;
 
     @ApiModelProperty(value = "User's key/id")
     private String username;
