@@ -8,13 +8,14 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import org.prnhs.javaee.swim.dto.UserDto;
 import org.prnhs.javaee.swim.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,7 +52,13 @@ public class UserController {
     public UserDto save(@RequestBody UserDto dto) {
         Meter requests = metrics.meter("save");
         requests.mark();
-        return userService.save(dto);
+
+        UserDto savedItem = userService.save(dto);
+
+        Link link = ControllerLinkBuilder.linkTo(UserController.class).slash(savedItem.getUsername()).withSelfRel();
+        savedItem.add(link);
+
+        return savedItem;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -64,7 +71,13 @@ public class UserController {
         LOGGER.debug("hello from getById {} ", id);
         Meter requests = metrics.meter("getById");
         requests.mark();
-        return userService.getById(id);
+
+        UserDto dto = userService.getById(id);
+
+        Link link = ControllerLinkBuilder.linkTo(UserController.class).slash(dto.getUsername()).withSelfRel();
+        dto.add(link);
+
+        return dto;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -74,7 +87,11 @@ public class UserController {
     public List<UserDto> getAll() {
         Meter requests = metrics.meter("getAll");
         requests.mark();
-        return userService.getAll();
+
+        List<UserDto> users = userService.getAll();
+        users.stream().forEach(user -> user.add(ControllerLinkBuilder.linkTo(UserController.class).slash(user.getUsername()).withSelfRel()));
+
+        return users;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
