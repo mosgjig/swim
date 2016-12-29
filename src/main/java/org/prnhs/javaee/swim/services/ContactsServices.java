@@ -29,7 +29,7 @@ public class ContactsServices {
             throw new IllegalArgumentException("Hey, you were supposed to give me a contact");
         }
 
-        Contacts contacts = dao.findOne(contactsDto.getId());
+        Contacts contacts = dao.findOne(contactsDto.getKey());
 
         if (contacts == null) {
             contacts = ContactTranslator.toEntity(contactsDto);
