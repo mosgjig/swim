@@ -13,6 +13,8 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -36,7 +38,9 @@ public class PlanResultController {
             @ApiResponse(code = 200, message = "OK", response = PlanResultDto.class),
             @ApiResponse(code = 400, message = "Bad Request")
     })
-    public PlanResultDto save(@RequestBody PlanResultDto resultDto) {
+    public PlanResultDto save(@RequestBody
+                              @Valid
+                              @NotNull(message = "{plan.result.null}") PlanResultDto resultDto) {
 
         LOGGER.info("POST /results get called.");
         LOGGER.debug("Saving: {}", resultDto);

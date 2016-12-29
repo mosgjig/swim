@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.hateoas.ResourceSupport;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Time;
 
@@ -15,6 +16,7 @@ public class PlanResultDto extends ResourceSupport implements Serializable {
 
     private static final long serialVersionUID = -3771894525549969986L;
 
+    @NotNull(message = "{plan.result.key.null}")
     @ApiModelProperty("Plan Result's key")
     private Integer key;
     @ApiModelProperty("Plan Result's strokes")
