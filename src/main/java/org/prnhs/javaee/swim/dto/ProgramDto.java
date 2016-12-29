@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.springframework.hateoas.ResourceSupport;
 
 @ApiModel(value="ProgramDto", description="Model for representing a Program")
@@ -11,6 +13,8 @@ public class ProgramDto extends ResourceSupport implements Serializable{
     
     @ApiModelProperty(value = "Program's key/id", readOnly = true)
     private Integer key;
+    @NotNull(message = "{program.objective.null}")
+    @Size(max = 300, min = 1, message = "{program.objective.size}")
     @ApiModelProperty(value = "Program's objective", required = true)
     private String objective;
 

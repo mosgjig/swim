@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.prnhs.javaee.swim.dto.ProgramDto;
 import org.prnhs.javaee.swim.services.ProgramService;
 import org.slf4j.Logger;
@@ -34,7 +36,7 @@ public class ProgramController {
     @ApiResponses(value = {
         @ApiResponse(code = 200, message ="OK", response = ProgramDto.class),
         @ApiResponse(code = 400, message = "Bad Request")})
-    public ProgramDto save(@RequestBody ProgramDto dto){
+    public ProgramDto save(@RequestBody @Valid @NotNull(message = "{program.null}") ProgramDto dto){
         LOGGER.debug("Save method called in ProgramController. Saving program with this objective: {}", dto.getObjective());
         
         ProgramDto savedItem = programService.save(dto);
