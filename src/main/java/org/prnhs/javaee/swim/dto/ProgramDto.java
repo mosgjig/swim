@@ -10,16 +10,16 @@ import org.springframework.hateoas.ResourceSupport;
 public class ProgramDto extends ResourceSupport implements Serializable{
     
     @ApiModelProperty(value = "Program's key/id", readOnly = true)
-    private Integer keyId;
+    private Integer key;
     @ApiModelProperty(value = "Program's objective", required = true)
     private String objective;
 
-    public Integer getKeyId() {
-        return keyId;
+    public Integer getKey() {
+        return key;
     }
 
-    public void setKeyId(Integer keyId) {
-        this.keyId = keyId;
+    public void setKey(Integer key) {
+        this.key = key;
     }
 
     public String getObjective() {
@@ -33,14 +33,14 @@ public class ProgramDto extends ResourceSupport implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + this.keyId;
+        hash = 29 * hash + this.key;
         hash = 29 * hash + Objects.hashCode(this.objective);
         return hash;
     }
 
     @Override
     public String toString() {
-        return "ProgramDto{" + "id=" + keyId + ", objective=" + objective + '}';
+        return "ProgramDto{" + "id=" + key + ", objective=" + objective + '}';
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ProgramDto extends ResourceSupport implements Serializable{
             return false;
         }
         final ProgramDto other = (ProgramDto) obj;
-        if (this.keyId != other.keyId) {
+        if (this.key != other.key) {
             return false;
         }
         if (!Objects.equals(this.objective, other.objective)) {

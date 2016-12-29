@@ -38,7 +38,7 @@ public class ProgramController {
         LOGGER.debug("Save method called in ProgramController. Saving program with this objective: {}", dto.getObjective());
         
         ProgramDto savedItem = programService.save(dto);
-        Link link = ControllerLinkBuilder.linkTo(ProgramController.class).slash(savedItem.getKeyId()).withSelfRel();
+        Link link = ControllerLinkBuilder.linkTo(ProgramController.class).slash(savedItem.getKey()).withSelfRel();
         savedItem.add(link);
         return savedItem;
     }
@@ -52,7 +52,7 @@ public class ProgramController {
         LOGGER.debug("getById method called in ProgramController with the id value: {}", id);
         
         ProgramDto dto = programService.getById(id);
-        Link link = ControllerLinkBuilder.linkTo(ProgramController.class).slash(dto.getKeyId()).withSelfRel();
+        Link link = ControllerLinkBuilder.linkTo(ProgramController.class).slash(dto.getKey()).withSelfRel();
         dto.add(link);
         
         return dto;
@@ -67,7 +67,7 @@ public class ProgramController {
         
         List<ProgramDto> programs = programService.getAll();
         programs.stream().forEach((program) -> {
-            program.add(ControllerLinkBuilder.linkTo(ProgramController.class).slash(program.getKeyId()).withSelfRel());
+            program.add(ControllerLinkBuilder.linkTo(ProgramController.class).slash(program.getKey()).withSelfRel());
         });
         
         return programs;
