@@ -2,14 +2,18 @@ package org.prnhs.javaee.swim.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.hateoas.ResourceSupport;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @ApiModel(value = "ContactsDto", description = "Model for representing a Contact")
-public class ContactsDto {
+public class ContactsDto extends ResourceSupport implements Serializable {
+
+    private static final long serialVersionUID = 1254941322074092446L;
 
     @ApiModelProperty(value = "Contact's key/id")
-    private Integer id;
+    private Integer key;
     @ApiModelProperty(value = "Contact's title")
     private String title;
     @ApiModelProperty(value = "Contact's fistname")
@@ -19,12 +23,12 @@ public class ContactsDto {
     @ApiModelProperty(value = "Contact's lastname")
     private String lastName;
 
-    public Integer getId() {
-        return id;
+    public Integer getKey() {
+        return key;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setKey(Integer key) {
+        this.key = key;
     }
 
     public String getTitle() {
@@ -62,7 +66,7 @@ public class ContactsDto {
     @Override
     public String toString() {
         return "ContactsDto{" +
-                "id=" + id +
+                "id=" + key +
                 ", title='" + title + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
@@ -73,7 +77,7 @@ public class ContactsDto {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.id);
+        hash = 67 * hash + Objects.hashCode(this.key);
         hash = 67 * hash + Objects.hashCode(this.title);
         hash = 67 * hash + Objects.hashCode(this.firstName);
         hash = 67 * hash + Objects.hashCode(this.middleName);
@@ -105,7 +109,7 @@ public class ContactsDto {
         if (!Objects.equals(this.lastName, other.lastName)) {
             return false;
         }
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.key, other.key)) {
             return false;
         }
         return true;

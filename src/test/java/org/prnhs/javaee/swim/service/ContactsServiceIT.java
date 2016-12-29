@@ -20,10 +20,10 @@ public class ContactsServiceIT {
     public static final String MIDDLENAME = "vl";
     public static final String LASTNAME = "curri";
     public static final String TITLE = "developer";
-    
+
     @InjectMocks
     private ContactsServices service;
-    
+
     @Mock
     private ContactsDao dao;
 
@@ -31,10 +31,10 @@ public class ContactsServiceIT {
     private List<ContactsDto> dtos;
     private Contacts contact;
     private List<Contacts> contacts;
-    
+
     @Before
     public void onStartUp(){
-        
+
         MockitoAnnotations.initMocks(this);
 
         contact = new Contacts();
@@ -43,31 +43,31 @@ public class ContactsServiceIT {
         contact.setMiddleName(MIDDLENAME);
         contact.setLastName(LASTNAME);
         contact.setTitle(TITLE);
-        
+
         dto = new ContactsDto();
-        dto.setId(ID);
+        dto.setKey(ID);
         dto.setFirstName(FIRSTNAME);
         dto.setMiddleName(MIDDLENAME);
         dto.setLastName(LASTNAME);
         dto.setTitle(TITLE);
     }
-    
+
     @Test
     public void test_saveWithFound() {
-        
+
         when(dao.findOne(Matchers.anyInt())).thenReturn(contact);
         when(dao.save(contact)).thenReturn(contact);
-        
+
         ContactsDto savedDto = service.save(dto);
         Mockito.verify(dao).save(contact);
     }
-    
+
     @Test
     public void test_saveNotFound() {
-        
+
         when(dao.findOne(Matchers.anyInt())).thenReturn(null);
         when(dao.save(contact)).thenReturn(contact);
-        
+
         ContactsDto savedDto = service.save(dto);
         Mockito.verify(dao).save(contact);
     }
