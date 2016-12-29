@@ -12,6 +12,8 @@ import org.prnhs.javaee.swim.services.ContactsServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,7 +52,12 @@ public class ContactController {
         Meter requests = metrics.meter("save");
         requests.mark();
 
-        return service.save(dto);
+        ContactsDto savedItem = service.save(dto);
+
+        Link link = ControllerLinkBuilder.linkTo(ContactController.class).slash(savedItem.getKey()).withSelfRel();
+        savedItem.add(link);
+
+        return savedItem;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -64,7 +71,12 @@ public class ContactController {
         Meter requests = metrics.meter("getById");
         requests.mark();
 
-        return service.getById(id);
+        ContactsDto dto = service.getById(id);
+
+        Link link = ControllerLinkBuilder.linkTo(ContactController.class).slash(dto.getKey()).withSelfRel();
+        dto.add(link);
+
+        return dto;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -78,6 +90,8 @@ public class ContactController {
         Meter requests = metrics.meter("getAll");
         requests.mark();
 
+        List<ContactsDto> contacts = service.getAll();
+        contacts.stream().forEach(contact -> contact.add(ControllerLinkBuilder.linkTo(ContactController.class).slash(contact.getKey()).withSelfRel()));
         return service.getAll();
     }
 

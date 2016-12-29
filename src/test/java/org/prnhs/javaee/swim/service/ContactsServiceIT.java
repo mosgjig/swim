@@ -45,7 +45,7 @@ public class ContactsServiceIT {
         contact.setTitle(TITLE);
         
         dto = new ContactsDto();
-        dto.setId(ID);
+        dto.setKey(ID);
         dto.setFirstName(FIRSTNAME);
         dto.setMiddleName(MIDDLENAME);
         dto.setLastName(LASTNAME);
