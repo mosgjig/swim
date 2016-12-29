@@ -47,7 +47,7 @@ public class PlanResultValidationTest {
     }
 
     @Test
-    public void test_NullKey() {
+    public void testNullKey() {
         planResult.setKey(null);
         Set<ConstraintViolation<PlanResultDto>> violations = this.validator.validate(planResult);
         assertTrue(!violations.isEmpty());

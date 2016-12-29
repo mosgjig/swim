@@ -50,15 +50,22 @@ public class PlanPracticeValidationTest {
     }
 
     @Test
-    public void test_NullKey() {
+    public void testNullKey() {
         planPractice.setKey(null);
         Set<ConstraintViolation<PlanPracticeDto>> violations = this.validator.validate(planPractice);
         assertTrue(!violations.isEmpty());
     }
 
     @Test
-    public void test_LongExercise() {
+    public void testLongExercise() {
         planPractice.setExercise(RandomStringUtils.randomAlphabetic(46));
+        Set<ConstraintViolation<PlanPracticeDto>> violations = this.validator.validate(planPractice);
+        assertTrue(!violations.isEmpty());
+    }
+
+    @Test
+    public void testShortExercise() {
+        planPractice.setExercise("");
         Set<ConstraintViolation<PlanPracticeDto>> violations = this.validator.validate(planPractice);
         assertTrue(!violations.isEmpty());
     }
