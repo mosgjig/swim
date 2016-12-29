@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.hateoas.ResourceSupport;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -12,16 +14,24 @@ public class ContactsDto extends ResourceSupport implements Serializable {
 
     private static final long serialVersionUID = 1254941322074092446L;
 
+    @NotNull(message = "{contact.key.null}")
     @ApiModelProperty(value = "Contact's key/id")
     private Integer key;
-    @ApiModelProperty(value = "Contact's title")
-    private String title;
+    @NotNull(message = "{contact.firstName.null}")
+    @Size(max = 45, min = 1, message = "{contact.firstName.size}")
     @ApiModelProperty(value = "Contact's fistname")
     private String firstName;
+    @Size(max = 45, min = 1, message = "{contact.middleName.size}")
     @ApiModelProperty(value = "Contact's middlename")
     private String middleName;
+    @NotNull(message = "{contact.lastName.null}")
+    @Size(max = 45, min = 1, message = "{contact.lastName.size}")
     @ApiModelProperty(value = "Contact's lastname")
     private String lastName;
+    @NotNull(message = "{contact.title.null}")
+    @Size(max = 45, min = 1,message = "{contact.title.size}")
+    @ApiModelProperty(value = "Contact's title")
+    private String title;
 
     public Integer getKey() {
         return key;

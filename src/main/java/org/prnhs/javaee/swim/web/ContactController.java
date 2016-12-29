@@ -18,6 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -46,7 +48,7 @@ public class ContactController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ContactsDto.class),
             @ApiResponse(code = 400, message = "Bad Request")})
-    public ContactsDto save(@RequestBody ContactsDto dto) {
+    public ContactsDto save(@RequestBody @Valid @NotNull(message = "{contact.null}") ContactsDto dto) {
 
         LOGGER.debug("A request to POST method saving '{}' as a Contact", dto.getFirstName());
         Meter requests = metrics.meter("save");
