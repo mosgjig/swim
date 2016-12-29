@@ -1,10 +1,15 @@
 package org.prnhs.javaee.swim.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
+@ApiModel(value = "UserPreferencesDto", description = "Model for representing a UserPreference")
 public class UserPreferencesDto {
 
+    @ApiModelProperty(value = "UserPreferences' username")
     private String username;
+    @ApiModelProperty(value = "UserPreferences' typeId")
     private Integer typeId;
 
     public String getUsername() {
