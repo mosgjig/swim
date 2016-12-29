@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.hateoas.ResourceSupport;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Time;
 
@@ -15,12 +17,14 @@ public class PlanPracticeDto extends ResourceSupport implements Serializable {
 
     private static final long serialVersionUID = -1466114511747372377L;
 
+    @NotNull(message = "{plan.practice.key.null}")
     @ApiModelProperty("Plan Practice's key")
     private Integer key;
     @ApiModelProperty("Plan Practice's length")
     private Integer length;
     @ApiModelProperty("Plan Practice's multiple")
     private Integer multiple;
+    @Size(min = 1, max = 45, message = "{plan.practice.exercise.size}")
     @ApiModelProperty("Plan Practice's exercise")
     private String exercise;
     @ApiModelProperty("Plan Practice's split")
