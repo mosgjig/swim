@@ -11,6 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Program service where all operations on a program are preformed.
+ * 
+ * @author mirlind
+ */
 @Service
 public class ProgramService {
     
