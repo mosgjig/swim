@@ -40,7 +40,7 @@ public class ProgramServiceTest {
         program.setObjective(OBJECTIVE);
         
         dto = new ProgramDto();
-        dto.setId(ID);
+        dto.setKeyId(ID);
         dto.setObjective(OBJECTIVE);
         programs = new ArrayList<>();
         dtos = new ArrayList<>();
