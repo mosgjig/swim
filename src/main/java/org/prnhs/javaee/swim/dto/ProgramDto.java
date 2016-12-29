@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.springframework.hateoas.ResourceSupport;
 
 @ApiModel(value="ProgramDto", description="Model for representing a Program")
@@ -11,6 +13,8 @@ public class ProgramDto extends ResourceSupport implements Serializable{
     
     @ApiModelProperty(value = "Program's key/id", readOnly = true)
     private Integer key;
+    @NotNull(message = "{program.objective.null}")
+    @Size(max = 300, min = 1, message = "{program.objective.size}")
     @ApiModelProperty(value = "Program's objective", required = true)
     private String objective;
 
@@ -26,17 +30,19 @@ public class ProgramDto extends ResourceSupport implements Serializable{
         return objective;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.key);
+        hash = 23 * hash + Objects.hashCode(this.objective);
+        return hash;
+    }
+
     public void setObjective(String objective) {
         this.objective = objective;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + this.key;
-        hash = 29 * hash + Objects.hashCode(this.objective);
-        return hash;
-    }
+    
 
     @Override
     public String toString() {
