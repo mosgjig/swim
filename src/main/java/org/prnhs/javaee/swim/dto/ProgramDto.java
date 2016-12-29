@@ -30,17 +30,19 @@ public class ProgramDto extends ResourceSupport implements Serializable{
         return objective;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.key);
+        hash = 23 * hash + Objects.hashCode(this.objective);
+        return hash;
+    }
+
     public void setObjective(String objective) {
         this.objective = objective;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + this.key;
-        hash = 29 * hash + Objects.hashCode(this.objective);
-        return hash;
-    }
+    
 
     @Override
     public String toString() {

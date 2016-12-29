@@ -43,8 +43,15 @@ public class ProgramValidationTest {
     }
     
     @Test
-    public void test_LongName() {
+    public void test_LongObjective() {
         program.setObjective(RandomStringUtils.randomAlphabetic(301));
+        Set<ConstraintViolation<ProgramDto>> violations = this.validator.validate(program);
+        assertTrue(!violations.isEmpty());
+    }
+    
+    @Test
+    public void test_ShortObjective() {
+        program.setObjective("");
         Set<ConstraintViolation<ProgramDto>> violations = this.validator.validate(program);
         assertTrue(!violations.isEmpty());
     }
