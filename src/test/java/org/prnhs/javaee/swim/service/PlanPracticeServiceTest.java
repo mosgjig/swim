@@ -50,7 +50,7 @@ public class PlanPracticeServiceTest {
         planPractice.setSplit(SPLIT);
 
         planPracticeDto = new PlanPracticeDto();
-        planPracticeDto.setId(ID);
+        planPracticeDto.setKey(ID);
         planPracticeDto.setLength(LENGTH);
         planPracticeDto.setMultiple(MULTIPLE);
         planPracticeDto.setExercise(EXERCISE);

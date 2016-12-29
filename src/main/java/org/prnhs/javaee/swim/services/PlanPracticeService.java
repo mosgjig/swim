@@ -29,7 +29,7 @@ public class PlanPracticeService {
             throw new IllegalArgumentException("You have to provide the Plan Practice!");
         }
 
-        PlanPractice planPractice = dao.findOne(planPracticeDto.getId());
+        PlanPractice planPractice = dao.findOne(planPracticeDto.getKey());
 
         if (planPractice == null) {
             LOGGER.debug("'Given 'Plan Practice' is not found, creating a new one.");

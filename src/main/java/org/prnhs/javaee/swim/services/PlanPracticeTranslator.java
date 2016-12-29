@@ -15,7 +15,7 @@ public class PlanPracticeTranslator {
         }
 
         PlanPracticeDto dto = new PlanPracticeDto();
-        dto.setId(entity.getId());
+        dto.setKey(entity.getId());
         dto.setLength(entity.getLength());
         dto.setMultiple(entity.getMultiple());
         dto.setExercise(entity.getExercise());
@@ -31,7 +31,7 @@ public class PlanPracticeTranslator {
         }
 
         PlanPractice entity = new PlanPractice();
-        entity.setId(dto.getId());
+        entity.setId(dto.getKey());
         entity.setLength(dto.getLength());
         entity.setMultiple(dto.getMultiple());
         entity.setExercise(dto.getExercise());

@@ -49,7 +49,7 @@ public class PlanResultServiceTest {
         planResult.setSwimTime(SWIM_TIME);
 
         planResultDto = new PlanResultDto();
-        planResultDto.setId(ID);
+        planResultDto.setKey(ID);
         planResultDto.setStrokes(STROKES);
         planResultDto.setLength(LENGTH);
         planResultDto.setSwimTime(SWIM_TIME);
