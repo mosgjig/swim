@@ -11,7 +11,7 @@ public class ProgramTranslator {
         }
         
         ProgramDto pDto = new ProgramDto();
-        pDto.setId(p.getId());
+        pDto.setKey(p.getId());
         pDto.setObjective(p.getObjective());
         
         return pDto;

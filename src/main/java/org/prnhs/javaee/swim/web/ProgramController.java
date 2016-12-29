@@ -10,6 +10,8 @@ import org.prnhs.javaee.swim.services.ProgramService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +36,11 @@ public class ProgramController {
         @ApiResponse(code = 400, message = "Bad Request")})
     public ProgramDto save(@RequestBody ProgramDto dto){
         LOGGER.debug("Save method called in ProgramController. Saving program with this objective: {}", dto.getObjective());
-        return programService.save(dto);
+        
+        ProgramDto savedItem = programService.save(dto);
+        Link link = ControllerLinkBuilder.linkTo(ProgramController.class).slash(savedItem.getKey()).withSelfRel();
+        savedItem.add(link);
+        return savedItem;
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,7 +50,12 @@ public class ProgramController {
         @ApiResponse(code = 400, message = "Bad Request")})
     public ProgramDto getById(@PathVariable Integer id){
         LOGGER.debug("getById method called in ProgramController with the id value: {}", id);
-        return programService.getById(id);
+        
+        ProgramDto dto = programService.getById(id);
+        Link link = ControllerLinkBuilder.linkTo(ProgramController.class).slash(dto.getKey()).withSelfRel();
+        dto.add(link);
+        
+        return dto;
     }
     
     @RequestMapping(value="/", method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,7 +64,13 @@ public class ProgramController {
     @ApiResponse(code = 200, message ="OK", response = ProgramDto.class)})
     public List<ProgramDto> getAll(){
         LOGGER.debug("getAll method called in ProgramController class");
-        return programService.getAll();
+        
+        List<ProgramDto> programs = programService.getAll();
+        programs.stream().forEach((program) -> {
+            program.add(ControllerLinkBuilder.linkTo(ProgramController.class).slash(program.getKey()).withSelfRel());
+        });
+        
+        return programs;
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

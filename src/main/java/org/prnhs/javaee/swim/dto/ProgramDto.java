@@ -2,22 +2,24 @@ package org.prnhs.javaee.swim.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 import java.util.Objects;
+import org.springframework.hateoas.ResourceSupport;
 
 @ApiModel(value="ProgramDto", description="Model for representing a Program")
-public class ProgramDto {
+public class ProgramDto extends ResourceSupport implements Serializable{
     
     @ApiModelProperty(value = "Program's key/id", readOnly = true)
-    private Integer id;
+    private Integer key;
     @ApiModelProperty(value = "Program's objective", required = true)
     private String objective;
 
-    public Integer getId() {
-        return id;
+    public Integer getKey() {
+        return key;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setKey(Integer key) {
+        this.key = key;
     }
 
     public String getObjective() {
@@ -31,14 +33,14 @@ public class ProgramDto {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + this.id;
+        hash = 29 * hash + this.key;
         hash = 29 * hash + Objects.hashCode(this.objective);
         return hash;
     }
 
     @Override
     public String toString() {
-        return "ProgramDto{" + "id=" + id + ", objective=" + objective + '}';
+        return "ProgramDto{" + "id=" + key + ", objective=" + objective + '}';
     }
 
     @Override
@@ -50,7 +52,7 @@ public class ProgramDto {
             return false;
         }
         final ProgramDto other = (ProgramDto) obj;
-        if (this.id != other.id) {
+        if (this.key != other.key) {
             return false;
         }
         if (!Objects.equals(this.objective, other.objective)) {
