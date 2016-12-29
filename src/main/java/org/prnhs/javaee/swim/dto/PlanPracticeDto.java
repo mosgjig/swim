@@ -2,17 +2,21 @@ package org.prnhs.javaee.swim.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.hateoas.ResourceSupport;
 
+import java.io.Serializable;
 import java.sql.Time;
 
 /**
  * Created by Durim Kryeziu on Dec 14, 2016.
  */
 @ApiModel(value = "PlanPracticeDto", description = "Model for representing a Plan Practice")
-public class PlanPracticeDto {
+public class PlanPracticeDto extends ResourceSupport implements Serializable {
 
-    @ApiModelProperty("Plan Practice's id")
-    private Integer id;
+    private static final long serialVersionUID = -1466114511747372377L;
+
+    @ApiModelProperty("Plan Practice's key")
+    private Integer key;
     @ApiModelProperty("Plan Practice's length")
     private Integer length;
     @ApiModelProperty("Plan Practice's multiple")
@@ -22,12 +26,12 @@ public class PlanPracticeDto {
     @ApiModelProperty("Plan Practice's split")
     private Time split;
 
-    public Integer getId() {
-        return id;
+    public Integer getKey() {
+        return key;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setKey(Integer key) {
+        this.key = key;
     }
 
     public Integer getLength() {
@@ -69,7 +73,7 @@ public class PlanPracticeDto {
 
         PlanPracticeDto that = (PlanPracticeDto) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (key != null ? !key.equals(that.key) : that.key != null) return false;
         if (length != null ? !length.equals(that.length) : that.length != null) return false;
         if (multiple != null ? !multiple.equals(that.multiple) : that.multiple != null) return false;
         if (exercise != null ? !exercise.equals(that.exercise) : that.exercise != null) return false;
@@ -78,7 +82,7 @@ public class PlanPracticeDto {
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = key != null ? key.hashCode() : 0;
         result = 31 * result + (length != null ? length.hashCode() : 0);
         result = 31 * result + (multiple != null ? multiple.hashCode() : 0);
         result = 31 * result + (exercise != null ? exercise.hashCode() : 0);
@@ -89,7 +93,7 @@ public class PlanPracticeDto {
     @Override
     public String toString() {
         return "PlanPracticeDto { " +
-                "id = " + id +
+                "key = " + key +
                 ", length = " + length +
                 ", multiple = " + multiple +
                 ", exercise = '" + exercise + '\'' +

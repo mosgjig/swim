@@ -3,14 +3,12 @@ package org.prnhs.javaee.swim.services;
 import org.prnhs.javaee.swim.core.dao.PlanResultDao;
 import org.prnhs.javaee.swim.core.entity.PlanResult;
 import org.prnhs.javaee.swim.dto.PlanResultDto;
-import org.prnhs.javaee.swim.web.PlanPracticeController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -31,7 +29,7 @@ public class PlanResultService {
             throw new IllegalArgumentException("You have to provide the Plan Result!");
         }
 
-        PlanResult planResult = dao.findOne(planResultDto.getId());
+        PlanResult planResult = dao.findOne(planResultDto.getKey());
 
         if (planResult == null) {
             LOGGER.debug("'Given 'Plan Result' is not found, creating a new one.");

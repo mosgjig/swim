@@ -9,10 +9,13 @@ import org.prnhs.javaee.swim.services.PlanPracticeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 /**
  * Created by Durim Kryeziu on Dec 15, 2016.
@@ -38,7 +41,15 @@ public class PlanPracticeController {
         LOGGER.info("POST /practices get called.");
         LOGGER.debug("Saving: {}", practiceDto);
 
-        return practiceService.save(practiceDto);
+        PlanPracticeDto saved = practiceService.save(practiceDto);
+
+        Link link = linkTo(PlanPracticeController.class)
+                .slash(saved.getKey())
+                .withSelfRel();
+
+        saved.add(link);
+
+        return saved;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,6 +65,12 @@ public class PlanPracticeController {
         PlanPracticeDto practiceDto = practiceService.getById(id);
 
         LOGGER.debug("Getting: {}", practiceDto);
+
+        Link link = linkTo(PlanPracticeController.class)
+                .slash(practiceDto.getKey())
+                .withSelfRel();
+
+        practiceDto.add(link);
 
         return practiceDto;
     }
@@ -72,6 +89,11 @@ public class PlanPracticeController {
 
         LOGGER.debug("{} 'Plan Practices' got found.", all.size());
         LOGGER.debug("Getting: {}", all);
+
+        all.stream()
+                .forEach(practiceDto -> practiceDto.add(linkTo(PlanPracticeController.class)
+                        .slash(practiceDto.getKey())
+                        .withSelfRel()));
 
         return all;
     }

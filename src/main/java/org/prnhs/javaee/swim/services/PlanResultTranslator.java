@@ -15,7 +15,7 @@ public class PlanResultTranslator {
         }
 
         PlanResultDto dto = new PlanResultDto();
-        dto.setId(entity.getId());
+        dto.setKey(entity.getId());
         dto.setStrokes(entity.getStrokes());
         dto.setLength(entity.getLength());
         dto.setSwimTime(entity.getSwimTime());
@@ -30,7 +30,7 @@ public class PlanResultTranslator {
         }
 
         PlanResult entity = new PlanResult();
-        entity.setId(dto.getId());
+        entity.setId(dto.getKey());
         entity.setStrokes(dto.getStrokes());
         entity.setLength(dto.getLength());
         entity.setSwimTime(dto.getSwimTime());
