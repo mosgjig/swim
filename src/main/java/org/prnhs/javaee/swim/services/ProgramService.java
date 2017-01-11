@@ -3,6 +3,7 @@ package org.prnhs.javaee.swim.services;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.dozer.Mapper;
 import org.prnhs.javaee.swim.core.dao.ProgramDao;
 import org.prnhs.javaee.swim.core.entity.Program;
 import org.prnhs.javaee.swim.dto.ProgramDto;
@@ -24,16 +25,19 @@ public class ProgramService {
     @Autowired
     private ProgramDao dao;
     
+    @Autowired
+    private Mapper mapper;
+    
     public ProgramDto save(ProgramDto programDto){
         if(programDto.getObjective() == null){
             LOGGER.warn("Save method called in ProgramService but the program object was null");
             throw new IllegalArgumentException("hey, you were supposed to give me a program!");
         }
         
-        Program program = ProgramTranslator.toEntity(programDto);        
+        Program program = mapper.map(programDto, Program.class);        
         program = dao.save(program);
         
-        ProgramDto savedProgram = ProgramTranslator.toDto(program);
+        ProgramDto savedProgram = mapper.map(program, ProgramDto.class);
         LOGGER.debug("Save method executed successfully in ProgramService, the program {} got saved", savedProgram);
         return savedProgram;
     }
@@ -45,7 +49,7 @@ public class ProgramService {
         
         if(p != null){
             LOGGER.debug("getById called: A program was found: {}", p);
-            dto = ProgramTranslator.toDto(p);
+            dto = mapper.map(p, ProgramDto.class);
         }
         return dto;
     }
@@ -59,7 +63,7 @@ public class ProgramService {
             Iterator<Program> iterator = programs.iterator();
             int count=0;    
             while(iterator.hasNext()){
-                ProgramDto dto = ProgramTranslator.toDto(iterator.next());
+                ProgramDto dto = mapper.map(iterator.next(), ProgramDto.class);
                 dtos.add(dto);
                 count++;
             }
