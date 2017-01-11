@@ -14,6 +14,8 @@ import org.prnhs.javaee.swim.services.UserPreferencesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,7 +53,12 @@ public class UserPreferencesController {
         LOGGER.debug("Save method has been called, saving username {}", dto.getUsername());
         Meter requests = metrics.meter("save");
         requests.mark();
-        return userPreferencesService.save(dto);
+
+        UserPreferencesDto savedItem = userPreferencesService.save(dto);
+        Link link = ControllerLinkBuilder.linkTo(UserPreferencesController.class).slash(savedItem.getUsername()).withSelfRel();
+        savedItem.add(link);
+
+        return savedItem;
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,9 +70,14 @@ public class UserPreferencesController {
         LOGGER.debug("getByUsername method has been called with the username: {}", username);
         Meter requests = metrics.meter("getByUsername");
         requests.mark();
-        return userPreferencesService.getByUsername(username);
+
+        UserPreferencesDto dto = userPreferencesService.getByUsername(username);
+        Link link = ControllerLinkBuilder.linkTo(ContactController.class).slash(dto.getUsername()).withSelfRel();
+        dto.add(link);
+
+        return dto;
     }
-    
+
     @ApiOperation(value = "Retrieve all userPreference", notes = "Retrieve all the userPreferences in the system")
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
@@ -74,6 +86,8 @@ public class UserPreferencesController {
         LOGGER.debug("GetAll method has been called");
         Meter requests = metrics.meter("getAll");
         requests.mark();
+        List<UserPreferencesDto> userPreferences = userPreferencesService.getAll();
+        userPreferences.stream().forEach(userPreference -> userPreference.add(ControllerLinkBuilder.linkTo(UserPreferencesController.class).slash(userPreference.getUsername()).withSelfRel()));
         return userPreferencesService.getAll();
     }
 
