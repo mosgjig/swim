@@ -39,10 +39,8 @@ public class UserService {
 
         if (user == null) {
             user = mapper.map(userDto, User.class);
-
         } else {
-            user.setPassword(userDto.getPassword());
-            user.setEnabled(userDto.getEnabled());
+            mapper.map(userDto, user);
         }
 
         user = dao.save(user);

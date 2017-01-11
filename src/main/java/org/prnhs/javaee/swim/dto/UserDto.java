@@ -82,4 +82,8 @@ public class UserDto extends ResourceSupport implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "UserDto{" + "username=" + username + ", password=" + password + ", enabled=" + enabled + '}';
+    }
 }
