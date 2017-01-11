@@ -3,6 +3,7 @@ package org.prnhs.javaee.swim.services;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.dozer.Mapper;
 import org.prnhs.javaee.swim.core.dao.UserDao;
 import org.prnhs.javaee.swim.core.entity.User;
 import org.prnhs.javaee.swim.dto.UserDto;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * User service where all operations on a user are preformed.
- * 
+ *
  * @author mosgjig
  */
 @Service
@@ -19,12 +20,15 @@ public class UserService {
 
     @Autowired
     private UserDao dao;
+    @Autowired
+    private Mapper mapper;
 
     /**
      * Save the user regardless if it exists or not.
-     * 
+     *
      * @param userDto - a {@link UserDto}
-     * @return userDto - the save user usually contains a populated key if none was fed
+     * @return userDto - the save user usually contains a populated key if none
+     * was fed
      */
     public UserDto save(UserDto userDto) {
         if (userDto == null) {
@@ -34,7 +38,7 @@ public class UserService {
         User user = dao.findOne(userDto.getUsername());
 
         if (user == null) {
-            user = UserTranslator.toEntity(userDto);
+            user = mapper.map(userDto, User.class);
 
         } else {
             user.setPassword(userDto.getPassword());
@@ -43,7 +47,7 @@ public class UserService {
 
         user = dao.save(user);
 
-        UserDto savedUser = UserTranslator.toDto(user);
+        UserDto savedUser = mapper.map(user, UserDto.class);
 
         return savedUser;
     }
@@ -52,7 +56,7 @@ public class UserService {
         UserDto dto = null;
         User user = dao.findOne(id);
         if (user != null) {
-            dto = UserTranslator.toDto(user);
+            dto = mapper.map(user, UserDto.class);
         }
         return dto;
     }
@@ -64,7 +68,7 @@ public class UserService {
         List<UserDto> dtos = new ArrayList<>();
         while (it.hasNext()) {
             User u = it.next();
-            UserDto dto = UserTranslator.toDto(u);
+            UserDto dto = mapper.map(u, UserDto.class);
             dtos.add(dto);
         }
         return dtos;
