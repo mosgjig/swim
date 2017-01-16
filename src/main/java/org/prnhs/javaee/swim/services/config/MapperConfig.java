@@ -22,7 +22,9 @@ public class MapperConfig {
     private static final String ID = "myId";
     private static final String MY_LIST = "myList";
     private static final String MY_USERS = "myUsers";
-    private static final String OBJECTIVE = "myObjective";
+    private static final String PROGRAM_ID = "id";
+    private static final String PROGRAM_KEY = "key";
+    private static final String OBJECTIVE = "objective";
 
     @Bean
     public Mapper mapper() {
@@ -41,7 +43,7 @@ public class MapperConfig {
                         .fields(MY_LIST, MY_LIST, collectionStrategy(Boolean.TRUE, RelationshipType.NON_CUMULATIVE))
                         .fields(MY_USERS, MY_USERS, collectionStrategy(Boolean.FALSE, RelationshipType.NON_CUMULATIVE));
                 mapping(Program.class, ProgramDto.class)
-                        .fields(ID, KEY, oneWay())
+                        .fields(PROGRAM_ID, PROGRAM_KEY, oneWay())
                         .fields(OBJECTIVE, OBJECTIVE);
             }
         };
