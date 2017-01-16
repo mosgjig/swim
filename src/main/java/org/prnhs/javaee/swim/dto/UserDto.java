@@ -6,9 +6,11 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.prnhs.javaee.swim.services.ValidateUser;
 import org.springframework.hateoas.ResourceSupport;
 
 @ApiModel(value = "UserDto", description = "Model for representing a User")
+@ValidateUser
 public class UserDto extends ResourceSupport implements Serializable {
 
     private static final long serialVersionUID = 1254941322074092446L;
