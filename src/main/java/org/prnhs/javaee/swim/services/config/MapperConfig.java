@@ -7,8 +7,10 @@ import org.dozer.classmap.RelationshipType;
 import org.dozer.loader.api.BeanMappingBuilder;
 import static org.dozer.loader.api.FieldsMappingOptions.collectionStrategy;
 import static org.dozer.loader.api.FieldsMappingOptions.oneWay;
+import org.prnhs.javaee.swim.core.entity.Program;
 import org.prnhs.javaee.swim.dto.MyObjectA;
 import org.prnhs.javaee.swim.dto.MyObjectB;
+import org.prnhs.javaee.swim.dto.ProgramDto;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -37,8 +39,10 @@ public class MapperConfig {
                         .fields(PASSWORD, PASSWORD, oneWay())
                         .fields(MY_LIST, MY_LIST, collectionStrategy(Boolean.TRUE, RelationshipType.NON_CUMULATIVE))
                         .fields(MY_USERS, MY_USERS, collectionStrategy(Boolean.FALSE, RelationshipType.NON_CUMULATIVE));
-                
+                mapping(Program.class, ProgramDto.class)
+                        .fields(field("id"), field("key"), oneWay())
+                        .fields(field("objective"), field("objective"));
             }
         };
-    }
+    }    
 }
