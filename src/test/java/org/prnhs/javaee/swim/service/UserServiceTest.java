@@ -1,6 +1,7 @@
 package org.prnhs.javaee.swim.service;
 
 import java.util.List;
+import org.dozer.Mapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -25,6 +26,8 @@ public class UserServiceTest {
 
     @Mock
     private UserDao dao;
+    @Mock
+    private Mapper mapper;
 
     private User user;
     private List<User> users;
@@ -48,6 +51,9 @@ public class UserServiceTest {
     
     @Test
     public void test_saveWithFound(){
+        when(mapper.map(dto, User.class)).thenReturn(user);
+        when(mapper.map(user, UserDto.class)).thenReturn(dto);
+
         when(dao.findOne(Matchers.anyString())).thenReturn(user);
         when(dao.save(user)).thenReturn(user);
         

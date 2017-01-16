@@ -31,10 +31,6 @@ public class UserService {
      * was fed
      */
     public UserDto save(UserDto userDto) {
-        if (userDto == null) {
-            throw new IllegalArgumentException("hey, you were supposed to give me a user!");
-        }
-
         User user = dao.findOne(userDto.getUsername());
 
         if (user == null) {

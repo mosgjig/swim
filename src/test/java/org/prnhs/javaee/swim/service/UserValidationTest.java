@@ -49,4 +49,11 @@ public class UserValidationTest {
         Set<ConstraintViolation<UserDto>> violations = this.validator.validate(user);
         assertTrue(!violations.isEmpty());
     }
+
+    @Test
+    public void test_BadPwd() {
+        user.setPassword(RandomStringUtils.randomNumeric(3));
+        Set<ConstraintViolation<UserDto>> violations = this.validator.validate(user);
+        assertTrue(!violations.isEmpty());
+    }
 }
