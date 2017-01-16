@@ -2,6 +2,7 @@ package org.prnhs.javaee.swim.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.dozer.Mapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -19,13 +20,16 @@ import org.prnhs.javaee.swim.services.ProgramService;
 public class ProgramServiceTest {
     
     private static final String OBJECTIVE = "the objective";
-    private static final int ID = 1;
+    private static final int ID = 2;
     
     @InjectMocks
     private ProgramService uut;
     
     @Mock
     private ProgramDao dao;
+    
+    @Mock
+    private Mapper mapper;
     
     private Program program;
     private List<Program> programs;
@@ -34,6 +38,7 @@ public class ProgramServiceTest {
     
     @Before
     public void onStartUp(){
+        //assertNotNull(mapper);
         MockitoAnnotations.initMocks(this);
         
         program = new Program();
@@ -50,7 +55,8 @@ public class ProgramServiceTest {
     public void test_saveWithFound(){
         when(dao.findOne(Matchers.anyInt())).thenReturn(program);
         when(dao.save(program)).thenReturn(program);
-        
+        when(mapper.map(dto, Program.class)).thenReturn(program);
+                
         ProgramDto savedDto = uut.save(dto);
         Mockito.verify(dao).save(program);
     }
@@ -59,6 +65,7 @@ public class ProgramServiceTest {
     public void test_saveWithoutFound(){
         when(dao.findOne(Matchers.anyInt())).thenReturn(null);
         when(dao.save(program)).thenReturn(program);
+        when(mapper.map(dto, Program.class)).thenReturn(program);
         
         ProgramDto savedDto = uut.save(dto);
         Mockito.verify(dao).save(program);        
@@ -67,6 +74,7 @@ public class ProgramServiceTest {
     @Test
     public void test_getById(){
         when(dao.findOne(ID)).thenReturn(program);
+        when(mapper.map(dto, Program.class)).thenReturn(program);
         
         ProgramDto dto = uut.getById(ID);
         Mockito.verify(dao).findOne(ID);  
