@@ -4,13 +4,17 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.springframework.hateoas.ResourceSupport;
 
 @ApiModel(value = "UserPreferencesDto", description = "Model for representing a UserPreference")
 public class UserPreferencesDto extends ResourceSupport implements Serializable {
 
     private static final long serialVersionUID = 1254941322074092446L;
-    
+
+    @NotNull(message = "{user.preference.username.null}")
+    @Size(max = 45, min = 1, message = "{user.preference.username.size}")
     @ApiModelProperty(value = "UserPreferences' username")
     private String username;
     @ApiModelProperty(value = "UserPreferences' typeId")
