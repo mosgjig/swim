@@ -1,0 +1,17 @@
+version: '2'
+services:
+    swim:
+        image: prnhs/swim
+        ports:
+            - "28080:8080"
+        environment:
+            - TZ=US/Pacific
+        depends_on:
+            - mysql
+        links:
+            - mysql
+    mysql:
+        image: mysql
+        environment:
+            - TZ=US/Pacific
+            - MYSQL_ROOT_PASSWORD=root
