@@ -28,12 +28,7 @@ public class ProgramService {
     @Autowired
     private Mapper mapper;
     
-    public ProgramDto save(ProgramDto programDto){
-        if(programDto.getObjective() == null){
-            LOGGER.warn("Save method called in ProgramService but the program object was null");
-            throw new IllegalArgumentException("hey, you were supposed to give me a program!");
-        }
-        
+    public ProgramDto save(ProgramDto programDto){        
         Program program = mapper.map(programDto, Program.class);        
         program = dao.save(program);
         

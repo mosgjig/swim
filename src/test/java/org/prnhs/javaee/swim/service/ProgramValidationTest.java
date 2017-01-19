@@ -55,4 +55,11 @@ public class ProgramValidationTest {
         Set<ConstraintViolation<ProgramDto>> violations = this.validator.validate(program);
         assertTrue(!violations.isEmpty());
     }
+    
+    @Test
+    public void test_numericObjective(){
+        program.setObjective(RandomStringUtils.randomNumeric(3));
+        Set<ConstraintViolation<ProgramDto>> violations = this.validator.validate(program);
+        assertTrue(!violations.isEmpty());
+    }
 }
