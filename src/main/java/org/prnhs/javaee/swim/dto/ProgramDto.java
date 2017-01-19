@@ -6,9 +6,11 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.prnhs.javaee.swim.services.ValidateProgram;
 import org.springframework.hateoas.ResourceSupport;
 
 @ApiModel(value="ProgramDto", description="Model for representing a Program")
+@ValidateProgram
 public class ProgramDto extends ResourceSupport implements Serializable{
     
     @ApiModelProperty(value = "Program's key/id", readOnly = true)

@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.prnhs.javaee.swim.dto.UserPreferencesDto;
 import org.prnhs.javaee.swim.services.UserPreferencesService;
 import org.slf4j.Logger;
@@ -49,7 +51,7 @@ public class UserPreferencesController {
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK", response = UserPreferencesDto.class),
         @ApiResponse(code = 400, message = "Bad Request")})
-    public UserPreferencesDto save(@RequestBody UserPreferencesDto dto) {
+    public UserPreferencesDto save(@RequestBody @Valid @NotNull(message = "{user.preference.null}") UserPreferencesDto dto) {
         LOGGER.debug("Save method has been called, saving username {}", dto.getUsername());
         Meter requests = metrics.meter("save");
         requests.mark();
